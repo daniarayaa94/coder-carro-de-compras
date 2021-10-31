@@ -16,6 +16,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import DrawerNavBar from "./DrawerNavBar";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -58,6 +59,10 @@ const Search = styled('div')(({ theme }) => ({
   }));
 
 export default function NavBar() {
+
+
+
+    
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   
@@ -139,16 +144,10 @@ export default function NavBar() {
     return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
+          <Toolbar>      
+
+            <DrawerNavBar/>
+
             <Typography
               variant="h6"
               noWrap
