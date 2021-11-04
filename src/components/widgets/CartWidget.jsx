@@ -7,7 +7,7 @@ import ModalCarrito from './ModalCarrito';
 
 export default function CartWidget() {
 
-    const [itemsEnCarrito, setItemsEnCarrito] = React.useState(0);
+    const [itemsEnCarrito, setItemsEnCarrito] = React.useState(7);
   
     const [open, setOpen] = React.useState(false);
     const mostraItems = () => setOpen(true);
