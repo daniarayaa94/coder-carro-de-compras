@@ -57,9 +57,6 @@ const Search = styled('div')(({ theme }) => ({
 
 export default function NavBar() {
 
-
-
-    
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   
