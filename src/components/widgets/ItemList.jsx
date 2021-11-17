@@ -7,12 +7,27 @@ import Item from './Item';
 
 export default function ItemList() {
   
+
+  const [productosApi, setproductosApi] = React.useState([]);
+
+  React.useEffect(() => {
+    getProductos.then(response=>{
+      setproductosApi(response)
+    }).catch(error => alert("Estamos presentando problemas. Ingrese más tarde."))
+  }, []);
+
+  const getProductos = new Promise((resolve) => {
+    setTimeout(()=>{
+      resolve(productos)
+    },2000)
+  })
+
   return (
     <div style={stylesItemList.background}>
       <h1> Nuevos productos</h1>
       <List style={stylesItemList.flexContainer}>
 
-        {productos.map((prod) => (
+        {productosApi.map((prod) => (
           <Item prod={prod}/>
         ))}
 
