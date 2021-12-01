@@ -50,7 +50,6 @@ export default function ItemList({filtro,idCategoria}) {
 
   return (
     <div style={stylesItemList.background}>
-      {idCategoria}
       { loading ? (
         <div style={stylesItemList.containerLoading} >
           <CircularProgress color="secondary" />
