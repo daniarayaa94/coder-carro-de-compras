@@ -1,6 +1,7 @@
 import React from "react";
 
 import { styled, alpha } from '@mui/material/styles';
+import { categorias } from "../../assets/dataArrays";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,8 +13,9 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import DrawerNavBar from "./DrawerNavBar";
+
 import CartWidget from "../widgets/CartWidget";
+import { Link } from "react-router-dom";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -140,7 +142,7 @@ export default function NavBar() {
         <AppBar position="static">
           <Toolbar>      
 
-            <DrawerNavBar/>
+            
 
             <Typography
               variant="h6"
@@ -159,6 +161,16 @@ export default function NavBar() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
+            <Link style={{ textDecoration: 'none',color:"white" }} to="/">
+                <Typography sx={{ ml: 10 }}> Inicio </Typography>
+              </Link>
+
+            {categorias.map((cat) => (
+              <Link style={{ textDecoration: 'none',color:"white" }} to={`/category/${cat.id}`}>
+                <Typography sx={{ ml: 10 }}> {cat.nombre}</Typography>
+              </Link>
+            ))}
+
             <Box sx={{ flexGrow: 1 }} />
 
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

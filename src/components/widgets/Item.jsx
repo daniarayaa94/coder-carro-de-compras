@@ -1,26 +1,54 @@
-import React from 'react';
-
-import { ListItem,TextField } from '@mui/material';
-import { stylesItemProd } from '../../styles/styles';
-import ItemCount from './ItemCount';
+import React, { useState } from "react";
 
 
-export default function Item({prod}) {
+import { stylesItemProd } from "../../styles/styles";
+import ItemCount from "./ItemCount";
+import { Link } from "react-router-dom";
 
-  const [cantidad, add] = React.useState(false);
+import { Button, CardActions } from '@mui/material';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
+export default function Item({ prod }) {
+
+
+  const [itemCountComponentVisibility, setItemCountComponentVisibility] = useState(false);
   
+  const onAdd = () => {
+    
+  };
+
+
+  const onAddCart = () => {
+    setItemCountComponentVisibility(true)
+  };
+
+
   return (
-    <ListItem  style={stylesItemProd.container}>
-        <div >
-        <img src={prod.photo} alt={prod.id} style={stylesItemProd.imgStyle}/>
-        <h1 style={stylesItemProd.title}>{prod.nombre}</h1>
-        <h1 style={stylesItemProd.title}>{prod.stock}</h1>
-        <ItemCount stock={prod.stock} initial={1}/>
-          <div style={{ ...stylesItemProd.container,display: "flex" }}>
-            <button >Agregar al carrito</button>
-          </div>
-        </div>
-    </ListItem>
+    
+    <Box sx={{ minWidth: 275 }}>
+      <Card variant="outlined">
+        <React.Fragment>
+          <CardContent>
+            <Link to={`/item/${prod.id}`}>
+              <img src={prod.photo} alt={prod.id} style={stylesItemProd.imgStyle} />
+            </Link>
+            
+            <Typography variant="h5" component="div">
+            {prod.nombre}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            Stock disponible {prod.stock}
+            </Typography>
+          </CardContent>
+          <CardActions style={{display:"flex",flexDirection:"column"}}> 
+            <ItemCount style={{flex:1}} item={prod} initial={1} />
+          </CardActions>
+        </React.Fragment>
+      </Card>
+    </Box>
+    
   );
 }
-

@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { productos } from '../../assets/dataArrays'
+
 import ItemCarrito from './itemCarrito';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-export default function ModalCarrito(props) {
+export default function ModalCarrito({open,handleClose,productos}) {
+
+
   return (
     <Modal
-        open={props.open}
-        onClose={props.handleClose}
+        open={open}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
         <Box sx={style}>
