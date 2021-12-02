@@ -18,10 +18,9 @@ export default function ItemCount({initial,item}) {
     setItemCountComponentVisibility(true)
     const valueItem = {
       id: item.id, 
-      nombre: item.nombre,
-      cantidad: cantidad
+      nombre: item.nombre
     }
-    addToCart(valueItem)
+    addToCart(valueItem,cantidad)
   };
 
   const addCantidad = () => {
