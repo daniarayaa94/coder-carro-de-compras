@@ -9,9 +9,11 @@ import { stylesItemList } from "../../styles/styles";
 import ItemDetail from "../widgets/itemDetail";
 import { CartContext } from "../../context/CartContext";
 
+import {getFirestore,doc,getDoc,getDocs,collection} from "firebase/firestore"
+
 export default function ItemDetailContainer(props) {
 
-  
+  const db = getFirestore();
 
   let { id } = useParams();
   const [productoActual, setProductoActual] = React.useState({});
@@ -19,14 +21,25 @@ export default function ItemDetailContainer(props) {
   const [loading, setLoading] = React.useState(true);
   
   React.useEffect(() => {
-    getItem
+
+    const itemsFirebase = doc(db,"items",id);
+
+      getDoc(itemsFirebase).then((snapshot)=>{
+        if(snapshot.exists()){
+          setProductoActual({...snapshot.data(),id: snapshot.id}); 
+          setLoading(false);
+        }
+        
+      });
+
+    /*getItem
       .then((response) => {
         setProductoActual(response);
         setLoading(false)
       })
       .catch((error) =>
         alert("Estamos presentando problemas. Ingrese más tarde.")
-      );
+      );*/
   }, []);
 
 

@@ -102,5 +102,35 @@ export const stylesItemList = {
             fontSize:33
            }
         };
+
+
+export const stylesShoppingCart = {
+    cartContainer:{
+        width: "70%",
+        height: "85%",
+        backgroundColor: "#ffffff",
+        borderRadius: 20,
+       },
+    header:{
+        margin: "auto",
+        width: "90%",
+        height: "15%",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+       },
+    heading:{
+        fontSize: 20,
+        fontWeight: 700,
+        color:"#2F3841",
+       },
+    action:{
+        fontSize: 14,
+        fontWeight: 600,
+        color: "#E44C4C",
+        cursor: "pointer",
+        //borderBottom: 1 solid #E44C4C,
+       }
+}
       
       

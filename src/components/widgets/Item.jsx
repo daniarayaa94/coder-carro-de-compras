@@ -33,7 +33,7 @@ export default function Item({ prod }) {
         <React.Fragment>
           <CardContent>
             <Link to={`/item/${prod.id}`}>
-              <img src={prod.photo} alt={prod.id} style={stylesItemProd.imgStyle} />
+              <img src={prod.foto} alt={prod.id} style={stylesItemProd.imgStyle} />
             </Link>
             
             <Typography variant="h5" component="div">

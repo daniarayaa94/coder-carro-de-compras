@@ -1,10 +1,25 @@
 import { createContext,useEffect,useState } from "react";
+import {getFirestore,doc,getDoc,getDocs,collection} from "firebase/firestore"
 
 export const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
 
+export const CartProvider = ({ children }) => {
+    const db = getFirestore();
     const [itemInCart, setItemInCart] = useState([])
+    const [categorias, setCategorias] = useState([])
+
+
+
+    useEffect(() => {
+  
+        const itemsFirebase = collection(db,"categorias");
+  
+        getDocs(itemsFirebase).then((snapshot)=>{
+            setCategorias(snapshot.docs.map((doc) => ({id:doc.id,...doc.data()}))); 
+        });
+       
+    }, []);
 
     const isInCart = (id) => {
         return itemInCart.find((element) => {
@@ -35,7 +50,7 @@ export const CartProvider = ({ children }) => {
 
 
     return (
-        <CartContext.Provider value={{itemInCart,setItemInCart,addToCart,clear,removeItem}}>
+        <CartContext.Provider value={{categorias,itemInCart,setItemInCart,addToCart,clear,removeItem}}>
             {children}
         </CartContext.Provider>
     )

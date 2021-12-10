@@ -4,34 +4,33 @@ import { CircularProgress,ImageList} from "@mui/material";
 import { productos } from "../../assets/dataArrays";
 import { stylesItemList } from "../../styles/styles";
 import Item from "./Item";
+import {where,query,getFirestore,doc,getDoc,getDocs,collection} from "firebase/firestore"
 
 export default function ItemList({filtro,idCategoria}) {
   const [productosApi, setproductosApi] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   
-  
+  const db = getFirestore();
+
   React.useEffect(() => {
       setLoading(true)
       
-      getProductos
-      .then((response) => {
-          console.log(filtro)
-          if(filtro === "productos"){
-            setproductosApi(response); 
-            setLoading(false);
-          }else{
-            console.log(filterProductosPorCategoria(response))
-            setproductosApi(filterProductosPorCategoria(response)); 
-            setLoading(false);
-          }
-          
-        })
-        .catch((error) =>
-          alert("Estamos presentando problemas. Ingrese más tarde.")
-        );
+      const itemsFirebase = collection(db,"items");
+      if(filtro === "productos"){
+        getDocs(itemsFirebase).then((snapshot)=>{
+          setproductosApi(snapshot.docs.map((doc) => ({id:doc.id,...doc.data()}))); 
+          setLoading(false);
+        });
+      }else{
+        const itemsFirebase2 = query(itemsFirebase,where("categoria","==",idCategoria));
 
-       
+        getDocs(itemsFirebase2).then((snapshot)=>{
+          setproductosApi(snapshot.docs.map((doc) => ({id:doc.id,...doc.data()}))); 
+          setLoading(false);
+        });
 
+      }
+      
   }, [idCategoria]);
 
   const getProductos = new Promise((resolve) => {
@@ -45,6 +44,8 @@ export default function ItemList({filtro,idCategoria}) {
     let prods = response.filter(a => idCategoria == a.categoria)
     if (prods.length > 0)
         return prods
+    else
+      return []
 
   }
 
@@ -59,11 +60,16 @@ export default function ItemList({filtro,idCategoria}) {
             <h1> Nuevos productos </h1>
 
             <div style={stylesItemList.root}>
+
+            { productosApi.length > 0 ? (
               <ImageList spacing={1} rowHeight={160} cols={5} style={stylesItemList.flexContainer}>
                 {productosApi.map((prod) => (
                   <Item prod={prod} />
                 ))}
               </ImageList>
+            ) : (
+              <div> No existen productos para mostrar </div>
+            )}
             </div>
           </div>
         ) 

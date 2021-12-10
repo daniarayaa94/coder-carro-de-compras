@@ -20,7 +20,7 @@ export default function ItemCount({initial,item}) {
       id: item.id, 
       nombre: item.nombre
     }
-    addToCart(valueItem,cantidad)
+    addToCart(item,cantidad)
   };
 
   const addCantidad = () => {

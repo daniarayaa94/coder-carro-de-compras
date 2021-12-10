@@ -1,7 +1,7 @@
 import React from "react";
 
 import { styled, alpha } from '@mui/material/styles';
-import { categorias } from "../../assets/dataArrays";
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,6 +16,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 
 import CartWidget from "../widgets/CartWidget";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -64,6 +65,8 @@ export default function NavBar() {
   
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const {categorias} = React.useContext(CartContext);
   
     const handleProfileMenuOpen = (event) => {
       setAnchorEl(event.currentTarget);
@@ -141,9 +144,6 @@ export default function NavBar() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>      
-
-            
-
             <Typography
               variant="h6"
               noWrap
