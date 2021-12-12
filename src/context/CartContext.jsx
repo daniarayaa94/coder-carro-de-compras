@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
     const [itemInCart, setItemInCart] = useState([])
     const [categorias, setCategorias] = useState([])
 
-
+    
 
     useEffect(() => {
   
@@ -27,6 +27,15 @@ export const CartProvider = ({ children }) => {
           })
     }
 
+    const getItem = (id) => {
+        return itemInCart.find((element) => {
+            if(element.id === id){
+                return element
+            }
+            return false;
+          })
+    }
+
     const clear = () => {
         setItemInCart([])
         
@@ -37,6 +46,29 @@ export const CartProvider = ({ children }) => {
             return element.id !== itemId;
           }))
         
+    } 
+    
+    const modifyQuantity = (itemId, quantity) => {
+        
+        //const item = getItem(itemId);
+
+        const newList = itemInCart.map((item) => {
+            if (item.id === itemId) {
+           
+                const updatedItem = {
+                    ...item,
+                    cantidad: quantity,
+                };
+    
+                return updatedItem;
+            }
+    
+            return item;
+        });
+        
+        setItemInCart(newList);
+          
+        
     }
 
     const addToCart = (item,quantity) => {
@@ -45,12 +77,13 @@ export const CartProvider = ({ children }) => {
             alert("El item ya existe dentro del carrito")
         }else{
             setItemInCart([...itemInCart,{...item,cantidad:quantity}])
+            console.log(itemInCart)
         }
     }
 
 
     return (
-        <CartContext.Provider value={{categorias,itemInCart,setItemInCart,addToCart,clear,removeItem}}>
+        <CartContext.Provider value={{categorias,itemInCart,setItemInCart,addToCart,clear,removeItem,getItem,modifyQuantity}}>
             {children}
         </CartContext.Provider>
     )

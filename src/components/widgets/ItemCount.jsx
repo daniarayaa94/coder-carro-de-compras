@@ -3,23 +3,27 @@ import React, { useState } from 'react';
 import { stylesItemCount } from '../../styles/styles';
 import { Button } from '@mui/material';
 import { CartContext } from '../../context/CartContext';
+import { Link } from 'react-router-dom';
 
 export default function ItemCount({initial,item}) {
 
+  const {itemInCart,getItem} = React.useContext(CartContext);
   const [cantidad, setCantidad] = React.useState(initial);
   const [itemCountComponentVisibility, setItemCountComponentVisibility] = useState(false);
   
 
   const {addToCart} = React.useContext(CartContext);
    
+  React.useEffect(() => {
+    const itemFromCart = getItem(item.id)
+    if(itemFromCart){
+      setItemCountComponentVisibility(true)
+    }
 
+  }, [itemInCart])
 
   const onAddCart = () => {
-    setItemCountComponentVisibility(true)
-    const valueItem = {
-      id: item.id, 
-      nombre: item.nombre
-    }
+  
     addToCart(item,cantidad)
   };
 
@@ -50,7 +54,9 @@ export default function ItemCount({initial,item}) {
             </div>
           ) : (
             <div>
-              <Button style={{flex:1}} color="success" variant="outlined">Agregado al carro</Button>
+              <Link to="/cart">
+                <Button style={{flex:1}} color="success" variant="outlined">Terminar compra</Button>
+              </Link>
             </div>
           )
         }
