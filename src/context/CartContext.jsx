@@ -77,7 +77,7 @@ export const CartProvider = ({ children }) => {
             alert("El item ya existe dentro del carrito")
         }else{
             setItemInCart([...itemInCart,{...item,cantidad:quantity}])
-            console.log(itemInCart)
+            //console.log(itemInCart)
         }
     }
 

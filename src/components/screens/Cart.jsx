@@ -1,4 +1,4 @@
-import { Avatar, Grid,Paper, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import { Avatar, Grid,Paper, List, ListItem, ListItemAvatar, ListItemText, Typography, TextField,Button } from "@mui/material";
 import { Box } from "@mui/system";
 import * as React from "react";
 import { CartContext } from "../../context/CartContext";
@@ -9,10 +9,16 @@ import ButtonBase from '@mui/material/ButtonBase'
 import { Link } from "react-router-dom";
 import { stylesItemCount } from "../../styles/styles";
 
+import { getFirestore, doc, getDoc, getDocs, collection, addDoc } from "firebase/firestore"
+
 export default function Cart() {
 
     const {itemInCart,removeItem,modifyQuantity} = React.useContext(CartContext);
     const [precioTotal , setTotal] = React.useState(0);
+
+    const [nombre , setNombre] = React.useState("");
+    const [email , setEmail] = React.useState("");
+    const [telefono , setTelefono] = React.useState("");
 
     const numberFormat = (value) => new Intl.NumberFormat('de-DE').format(value);
 
@@ -40,8 +46,27 @@ export default function Cart() {
             alert("debes remover el producto")
         }
     }
+
     
-    
+    const onSubmit = () => {
+        const order = {
+            name: nombre,
+            email: email,
+            phone: telefono,
+            items: itemInCart,
+            total: precioTotal
+        }
+
+        const db = getFirestore();
+
+        const orderCollection = collection(db,"orders");
+
+        addDoc(orderCollection,order).then(({id}) => {
+            //console.log(id)
+            alert("Su orden fue guardada exitosamente")
+        });
+
+    }
 
     
   return (
@@ -101,13 +126,60 @@ export default function Cart() {
                         )
                 })}   
 
-
                 <Paper sx={{ p: 2, margin: 'auto', maxWidth: "90%", flexGrow: 1,mt:2 }}>           
                     <Grid container spacing={2}>
                         <Grid item xs={12} sx={{textAlign:"right"}}>
                             <Typography variant="subtitle1" component="div">
                                 Total ${numberFormat(precioTotal)}
                             </Typography>
+                        </Grid>
+                    </Grid>
+                </Paper>
+
+                <Paper sx={{ p: 2, margin: 'auto', maxWidth: "90%", flexGrow: 1,mt:2 }}>           
+                    <Grid container spacing={2}>
+                        
+                        <Grid item xs={12} sx={{textAlign:"center"}}>
+                            <h1>Finalizar compra</h1>
+                            <div>
+                                <TextField
+                                    fullWidth
+                                    sx={{mt:2}}
+                                    label="Nombre"
+                                    value={nombre}
+                                    onChange={(e) => {setNombre(e.target.value)} }
+                                    defaultValue=""
+                                    variant="filled"
+                                    />
+                            </div>
+
+                            <div>
+                                <TextField
+                                    fullWidth
+                                    sx={{mt:2}}
+                                    label="Email"
+                                    value={email}
+                                    onChange={(e) => {setEmail(e.target.value)} }
+                                    defaultValue=""
+                                    variant="filled"
+                                    />
+                            </div>
+                            <div>
+                                <TextField
+                                    fullWidth
+                                    sx={{mt:2}}
+                                    value={telefono}
+                                    onChange={(e) => {setTelefono(e.target.value)} }
+                                    label="Telefono"
+                                    defaultValue=""
+                                    variant="filled"
+                                    />
+                            </div>
+                            
+                            <div>
+                                <Button sx={{mt:2}} variant="outlined" onClick={ () => {onSubmit()} } >Finalizar compra</Button>
+                            </div>
+
                         </Grid>
                     </Grid>
                 </Paper>

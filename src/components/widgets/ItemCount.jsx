@@ -55,7 +55,7 @@ export default function ItemCount({initial,item}) {
           ) : (
             <div>
               <Link to="/cart">
-                <Button style={{flex:1}} color="success" variant="outlined">Terminar compra</Button>
+                <Button style={{flex:1}} color="success" variant="outlined">Ir al carrito</Button>
               </Link>
             </div>
           )
