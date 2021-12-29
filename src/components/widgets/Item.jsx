@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 
 import { stylesItemProd } from "../../styles/styles";
 import ItemCount from "./ItemCount";
 import { Link } from "react-router-dom";
 
-import { Button, CardActions } from '@mui/material';
+import {  CardActions } from '@mui/material';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -13,22 +13,9 @@ import Typography from '@mui/material/Typography';
 
 export default function Item({ prod }) {
 
-
-  const [itemCountComponentVisibility, setItemCountComponentVisibility] = useState(false);
-  
-  const onAdd = () => {
-    
-  };
-
-
-  const onAddCart = () => {
-    setItemCountComponentVisibility(true)
-  };
-
-
   return (
     
-    <Box sx={{ minWidth: 275 }}>
+    <Box key={prod.id} sx={{ minWidth: 275 }}>
       <Card variant="outlined">
         <React.Fragment>
           <CardContent>

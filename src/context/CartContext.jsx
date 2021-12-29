@@ -1,18 +1,18 @@
 import { createContext,useEffect,useState } from "react";
-import {getFirestore,doc,getDoc,getDocs,collection} from "firebase/firestore"
+import {getFirestore,getDocs,collection} from "firebase/firestore"
 
 export const CartContext = createContext();
 
 
 export const CartProvider = ({ children }) => {
-    const db = getFirestore();
     const [itemInCart, setItemInCart] = useState([])
     const [categorias, setCategorias] = useState([])
-
     
-
+    
+    
     useEffect(() => {
-  
+        
+        const db = getFirestore();
         const itemsFirebase = collection(db,"categorias");
   
         getDocs(itemsFirebase).then((snapshot)=>{

@@ -3,19 +3,15 @@ import Badge from '@mui/material/Badge';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-import ModalCarrito from './ModalCarrito';
+
 import { CartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 
 export default function CartWidget() {
 
    const {itemInCart} = React.useContext(CartContext);
-
-    const [itemsEnCarrito, setItemsEnCarrito] = React.useState(7);
   
-    const [open, setOpen] = React.useState(false);
-    const mostraItems = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    
     
     //<ModalCarrito productos={itemInCart} open={open} handleClose={handleClose} />
   return (
@@ -23,9 +19,6 @@ export default function CartWidget() {
     <div >
         <Badge badgeContent={itemInCart.length} color="success" >
         <Link to="cart"><ShoppingCartIcon   color="white" /></Link>
-
-        
-
         </Badge>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 import { stylesItemProd } from "../../styles/styles";
 
-import { Button, CardActions } from '@mui/material';
+import { CardActions } from '@mui/material';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';

@@ -43,6 +43,6 @@ const style = {
     boxShadow: 24,
     p: 4,
     borderRadius: 20,
-    width: "30%",
-        height: "55%",
+    height: "55%",
+    
   };

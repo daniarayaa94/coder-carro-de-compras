@@ -1,19 +1,17 @@
 import * as React from "react";
-import { productos } from "../../assets/dataArrays";
 import { useParams } from "react-router-dom";
 
 
-import { Button, CircularProgress } from "@mui/material";
+import {  CircularProgress } from "@mui/material";
 import { stylesItemList } from "../../styles/styles";
 
 import ItemDetail from "../widgets/itemDetail";
-import { CartContext } from "../../context/CartContext";
 
-import {getFirestore,doc,getDoc,getDocs,collection} from "firebase/firestore"
+import {getFirestore,doc,getDoc} from "firebase/firestore"
 
 export default function ItemDetailContainer(props) {
 
-  const db = getFirestore();
+  
 
   let { id } = useParams();
   const [productoActual, setProductoActual] = React.useState({});
@@ -21,7 +19,7 @@ export default function ItemDetailContainer(props) {
   const [loading, setLoading] = React.useState(true);
   
   React.useEffect(() => {
-
+    const db = getFirestore();
     const itemsFirebase = doc(db,"items",id);
 
       getDoc(itemsFirebase).then((snapshot)=>{
@@ -32,26 +30,7 @@ export default function ItemDetailContainer(props) {
         
       });
 
-    /*getItem
-      .then((response) => {
-        setProductoActual(response);
-        setLoading(false)
-      })
-      .catch((error) =>
-        alert("Estamos presentando problemas. Ingrese más tarde.")
-      );*/
   }, []);
-
-
-
-  
-
-  const getItem = new Promise((resolve) => {
-    setTimeout(() => {
-      let prodFind = productos.filter((prod) => id == prod.id);
-      resolve(prodFind[0]);
-    }, 2000);
-  });
 
   return (
     loading ? (
@@ -67,8 +46,3 @@ export default function ItemDetailContainer(props) {
   )
 }
 
-const styles = {
-  container: {
-    justifyContent: "center",
-  },
-};

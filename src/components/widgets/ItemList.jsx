@@ -1,19 +1,18 @@
 import React from "react";
 
 import { CircularProgress,ImageList} from "@mui/material";
-import { productos } from "../../assets/dataArrays";
 import { stylesItemList } from "../../styles/styles";
 import Item from "./Item";
-import {where,query,getFirestore,doc,getDoc,getDocs,collection} from "firebase/firestore"
+import {where,query,getFirestore,getDocs,collection} from "firebase/firestore"
 
 export default function ItemList({filtro,idCategoria}) {
   const [productosApi, setproductosApi] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   
-  const db = getFirestore();
-
+  
   React.useEffect(() => {
-      setLoading(true)
+    setLoading(true)
+    const db = getFirestore();
       
       const itemsFirebase = collection(db,"items");
       if(filtro === "productos"){
@@ -33,21 +32,7 @@ export default function ItemList({filtro,idCategoria}) {
       
   }, [idCategoria]);
 
-  const getProductos = new Promise((resolve) => {
-    setTimeout(() => {
-        resolve(productos);
-    }, 2000);
-  });
 
-
-  function filterProductosPorCategoria(response) {
-    let prods = response.filter(a => idCategoria == a.categoria)
-    if (prods.length > 0)
-        return prods
-    else
-      return []
-
-  }
 
   return (
     <div style={stylesItemList.background}>
@@ -64,7 +49,7 @@ export default function ItemList({filtro,idCategoria}) {
             { productosApi.length > 0 ? (
               <ImageList spacing={1} rowHeight={160} cols={5} style={stylesItemList.flexContainer}>
                 {productosApi.map((prod) => (
-                  <Item prod={prod} />
+                  <Item key={prod.id} prod={prod} />
                 ))}
               </ImageList>
             ) : (

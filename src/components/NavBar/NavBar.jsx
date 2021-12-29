@@ -135,7 +135,7 @@ export default function NavBar() {
           >
             <AccountCircle />
           </IconButton>
-          <p>Perfil</p>
+          <span>Perfil</span>
         </MenuItem>
       </Menu>
     );
@@ -152,21 +152,13 @@ export default function NavBar() {
             >
               DarkClaw - Store
             </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
+            
             <Link style={{ textDecoration: 'none',color:"white" }} to="/">
                 <Typography sx={{ ml: 10 }}> Inicio </Typography>
               </Link>
 
             {categorias.map((cat) => (
-              <Link style={{ textDecoration: 'none',color:"white" }} to={`/category/${cat.id}`}>
+              <Link key={cat.id} style={{ textDecoration: 'none',color:"white" }} to={`/category/${cat.id}`}>
                 <Typography sx={{ ml: 10 }}> {cat.nombre}</Typography>
               </Link>
             ))}
