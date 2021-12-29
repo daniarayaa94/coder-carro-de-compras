@@ -73,11 +73,8 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = (item,quantity) => {
 
-        if(isInCart(item.id) ){
-            alert("El item ya existe dentro del carrito")
-        }else{
+        if( !isInCart(item.id) ){
             setItemInCart([...itemInCart,{...item,cantidad:quantity}])
-            //console.log(itemInCart)
         }
     }
 
